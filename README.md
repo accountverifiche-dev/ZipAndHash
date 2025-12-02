@@ -181,7 +181,7 @@ All modules in the project are covered at 100%.
 ```
 project/
 │
-├── zah/
+├── src/zah/
 │   ├── config.py
 │   ├── dir_operations.py
 │   ├── extensions.py
