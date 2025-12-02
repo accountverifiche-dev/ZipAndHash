@@ -208,3 +208,10 @@ __marimo__/
 
 # PyCharm
 .idea/
+
+# Doxygen
+html/
+Doxyfile
+
+# Other
+test_*/

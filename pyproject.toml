@@ -1,0 +1,18 @@
+[project]
+name = "zah"
+version = "1.0.0"
+requires-python = ">=3.10"
+
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov", "coverage"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[project.scripts]
+zah = "zah.main:main"

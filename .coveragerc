@@ -1,0 +1,18 @@
+[run]
+branch = True
+source =
+    zah
+
+omit =
+    */venv/*
+    */.venv/*
+    */site-packages/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == '__main__':
+    return NotImplemented
+
+show_missing = True
+precision = 2
