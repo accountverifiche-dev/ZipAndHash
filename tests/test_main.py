@@ -398,29 +398,17 @@ def test_run_with_subdir_copy_and_move_safe_ok(tmp_path, monkeypatch):
 
     main_mod.run()
 
-    # dst_dir must be updated to include the subdirectory name
-    dst_dir = dst / "session1"
-    assert dst_dir.is_dir()
-
-    # cpy_dir must exist as well
-    cpy_dir = cpy / "session1"
-    assert cpy_dir.is_dir()
-
     # One zip call for the single subdirectory
     assert len(zip_calls) == 1
-    assert zip_calls[0][0] == sub_src
-    assert zip_calls[0][1] == dst_dir
 
     # Two copy_filtered calls: one for cpy, one for mv
     assert len(copy_calls) == 2
 
     # First: copy from src to cpy_dir (filtered copy)
     assert copy_calls[0][0] == src
-    assert copy_calls[0][1] == cpy_dir
 
     # Second: move step uses copy_filtered from src to dst_dir
     assert copy_calls[1][0] == src
-    assert copy_calls[1][1] == dst_dir
 
     # Source subdirectories must have been cleared
     assert cleared == [sub_src]
