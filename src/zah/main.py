@@ -4,6 +4,7 @@ import argparse
 import shutil
 from pathlib import Path
 from typing import List, Optional, Dict
+from datetime import datetime
 
 from zah.config import *
 from zah.single_instance import *
@@ -13,12 +14,14 @@ from zah.hash import *
 from zah.logger import *
 from zah.extensions import *
 
+
+__all__ = ["main"]
+
+
 script_name = "zipandhash"
 config: Config
 log: Optional[logging.Logger] = None
-
-
-__all__ = ["main"]
+now = datetime.now()
 
 
 def init(argv: List[str]) -> None:
@@ -107,10 +110,13 @@ def run() -> None:
     log.debug(f"Paths checked successfully")
 
     log.info(f"Starting zip process for directory {config.src}...")
-    sub_dir: Optional[str] = None
+    class_name: Optional[str] = None
+    school_year: Optional[str] = None
     if config.sub_dir:
-        sub_dir = input("Insert subdirectory name: ")
-        dst_dir = config.dst / sub_dir
+        class_name = input("Insert class name (ex. 3P): ")
+        year = now.year if (now.month > 9) or (now.month == 9 and now.day >= 15) else now.year - 1
+        school_year = f"{year}-{year+1}"
+        dst_dir = config.dst / school_year / f"{class_name}_{now.strftime('%Y-%m-%d')}_{username}"
         dst_dir.mkdir(parents=True, exist_ok=True)
         if not dst_dir.is_dir():
             raise NotADirectoryError(f"Destination directory {dst_dir} is not a directory") # pragma: no cover
@@ -149,8 +155,8 @@ def run() -> None:
     # COPY EVERYTHING IN THE CPY DIRECTORY, IF REQUESTED
     # -----------------------------------------------------------------------------------------------------------------
     if config.cpy:
-        if sub_dir:
-            cpy_dir = config.cpy / sub_dir
+        if class_name and school_year:
+            cpy_dir = config.cpy / username / school_year / f"{class_name}_{now.strftime('%Y-%m-%d')}"
             cpy_dir.mkdir(parents=True, exist_ok=True)
             if not cpy_dir.is_dir():
                 raise NotADirectoryError(f"Copy directory {cpy_dir} is not a directory") # pragma: no cover
