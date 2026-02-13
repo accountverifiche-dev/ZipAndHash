@@ -21,12 +21,12 @@ REM --------------------------------------------------------------
 REM Modify parameters below as needed
 REM --------------------------------------------------------------
 
-set SRC=C:\path\to\source
-set DST=C:\path\to\destination
-set CPY=C:\path\to\copy
+set SRC=J:\Laboratorio-1
+set DST=K:\
+set CPY=G:\Drive condivisi\Archivio Verifiche e Griglie - Dipartimento di Informatica
 
 REM Optional parameters (modify or delete if unused)
-set OPTIONS=--debug --fzip --fcpy --fmv --cpy "%CPY%" --unsafe
+set OPTIONS=--mv --sub --cpy "%CPY%" --fzip --fcpy
 
 echo Running:
 echo     zah %SRC% %DST% %OPTIONS%
