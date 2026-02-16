@@ -144,11 +144,14 @@ def run() -> None:
         log.debug(f"Hash ({config.hash}) of {zip_file.name}: {h}")
 
     hashes_file = dst_dir / "hashes.txt"
+    final_hash_file = dst_dir/"final_hash.txt"
     with hashes_file.open("w") as f:
         f.writelines([f"{k} ({config.hash}): {v}\n" for k, v in hashes.items()])
     log.info(f"Hash process completed successfully ({len(hashes)} files hashed)")
 
     h = hash_file(hashes_file, config.hash)
+    with final_hash_file.open("w") as fh:
+        fh.write(f"Final hash ({config.hash}): {h}")
     log.critical(f"Final hash ({config.hash}): {h}")
 
     # -----------------------------------------------------------------------------------------------------------------
